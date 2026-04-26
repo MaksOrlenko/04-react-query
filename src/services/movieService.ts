@@ -22,7 +22,7 @@ export const fetchMovies = async (
   query: string,
   page: number = 1
 ): Promise<MoviesResponse> => {
-  const response = await movieInstance.get("/search/movie", {
+  const response = await movieInstance.get<MoviesResponse>("/search/movie", {
     params: {
       query,
       page,
