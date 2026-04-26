@@ -8,7 +8,7 @@ export interface MoviesResponse {
   page: number;
 }
 
-const ACCESS_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+const ACCESS_TOKEN = import.meta.env.VITE_TMDB_API_KEY;
 
 const movieInstance = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -20,15 +20,16 @@ const movieInstance = axios.create({
 
 export const fetchMovies = async (
   query: string,
-  page: number = 1,
+  page: number = 1
 ): Promise<MoviesResponse> => {
-  const response = await movieInstance.get<MoviesResponse>("/search/movie", {
+  const response = await movieInstance.get("/search/movie", {
     params: {
-      query: query,
+      query,
+      page,
       include_adult: false,
       language: "en-US",
-      page: page,
     },
   });
+
   return response.data;
 };
